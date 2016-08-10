@@ -1,0 +1,24 @@
+{
+  "name": "code_creator",
+  "version": "1.0.0",
+  "description": "this is a code creator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "jpaCreate": "./lib/index.js"
+  },
+  "keywords": [
+    "code",
+    "creator"
+  ],
+  "author": "li",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "ejs": "^2.5.1",
+    "rimraf": "^2.5.4",
+    "yargs": "^4.8.1"
+  }
+}
