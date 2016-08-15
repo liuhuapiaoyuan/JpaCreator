@@ -38,20 +38,25 @@ public class <%=_name%> extends BaseEntity {
 	<% item.fields.forEach(function(eitem,ekey){ -%>
 	/** <%= eitem.info %> **/
 		<%= eitem.name -%><%= (item.fields.length-1 == ekey)?'':','%>
-	<% }) %> 
+	<% }) -%> 
 	}
 <% }) %> 
 	
 	 
 <% for(var i=0; i<fields.length; i++) {%>
 	/**<%=fields[i].info%> **/
+	<% if(!fields[i].collectionType){ %>
 	private <%=fields[i].type%> <%=fields[i].name%> ;
+	<% } %>
+	<%_if(fields[i].collectionType){_%>
+	private <%=fields[i].collectionType%><<%=fields[i].type%>> <%=fields[i].name%> = new <%-fields[i].collectionType=='Set'?'HashSet':'ArrayList'-%><<%-fields[i].type-%>>();
+	<%_}_%>
 	
 	/**
 	 * 获取<%=fields[i].name%>
 	 * @return Mobile
 	 */
-	<% for(var j=0; j<fields[i].annotation.length; j++){%><%=fields[i].annotation[j]%> 
+	<% for(var j=0; j<fields[i].annotation.length; j++){%><%-fields[i].annotation[j]%> 
 	<% } %>public <%=fields[i].type%> get<%=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()});%>() {
 		return this.<%=fields[i].name%>;
 	}
