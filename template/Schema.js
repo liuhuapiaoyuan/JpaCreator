@@ -6,6 +6,23 @@ module.exports = {
 	name:'tablename',
 	info:'entity info',
 	updateIgnoreProperties:["name","age"],		//admin更新时候忽略的对象
+	enums:[
+		//定义枚举
+		{
+			name:'OrderStatus',
+			info:'订单状态',
+			fields:[
+				{
+					name:'checkin',
+					info:'入住'
+				},
+				{
+					name:'checkout',
+					info:'离店'
+				}
+			]
+		}
+	],
 	fields:[
 		{
 			name:'username',
@@ -13,6 +30,16 @@ module.exports = {
 			type:'String',
 			annotation:[
 				"@NotEmpty(groups = Save.class)",
+				"@JsonIgnore"
+			]
+		},
+		{
+			name:'orders',
+			info:'用户所有订单',
+			type:'Order',
+			collectionType:'Set',
+			annotation:[
+				'@Column(mappedBy="member",optional=false,fetch = FetchType.LAZY)',
 				"@JsonIgnore"
 			]
 		},
