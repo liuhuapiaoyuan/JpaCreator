@@ -29,6 +29,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class <%=_name%> extends BaseEntity {
 
 	private static final long serialVersionUID = <%=serialVersionUID%>L;
+<% enums.forEach(function(item,key){ %>
+	/**
+	 * <%= item.info %>
+	 * @author li
+	 */
+	public enum <%=item.name-%> {
+	<% item.fields.forEach(function(eitem,ekey){ -%>
+	/** <%= eitem.info %> **/
+		<%= eitem.name -%><%= (item.fields.length-1 == ekey)?'':','%>
+	<% }) %> 
+	}
+<% }) %> 
+	
 	 
 <% for(var i=0; i<fields.length; i++) {%>
 	/**<%=fields[i].info%> **/
