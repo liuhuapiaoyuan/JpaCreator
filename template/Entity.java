@@ -2,9 +2,12 @@ package <%=packageName%>.entity;
 
 
 import java.util.Date;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -42,19 +45,20 @@ public class <%=_name%> extends BaseEntity {
 	}
 <% }) %> 
 	
-	 
-<% for(var i=0; i<fields.length; i++) {%>
-	/**<%=fields[i].info%> **/
-	<% if(!fields[i].collectionType){ %>
-	private <%=fields[i].type%> <%=fields[i].name%> ;
-	<% } %>
+<%_ for(var i=0; i<fields.length; i++) { _%>
+	/**<%-fields[i].info -%> **/
+	<%_ if(!fields[i].collectionType){ _%>
+	private <%=fields[i].type-%> <%=fields[i].name-%> ;
+	<%_ } _%>
 	<%_if(fields[i].collectionType){_%>
 	private <%=fields[i].collectionType%><<%=fields[i].type%>> <%=fields[i].name%> = new <%-fields[i].collectionType=='Set'?'HashSet':'ArrayList'-%><<%-fields[i].type-%>>();
 	<%_}_%>
 	
+<%_ } _%> 
+<% for(var i=0; i<fields.length; i++) {%>
 	/**
-	 * 获取<%=fields[i].name%>
-	 * @return Mobile
+	 * 获取<%=fields[i].info%>
+	 * @return <%=fields[i].type%> 获取<%=fields[i].info%>
 	 */
 	<% for(var j=0; j<fields[i].annotation.length; j++){%><%-fields[i].annotation[j]%> 
 	<% } %>public <%=fields[i].type%> get<%=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()});%>() {

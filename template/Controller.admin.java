@@ -100,7 +100,7 @@ public class <%=_name%>Controller extends BaseController {
 			return Result.error(10005L, "<%=_name%>不存在");	
 		}
 		<%=_name%> new<%=_name%> = DTOCover.copy(new<%=_name%>DTO, <%=_name%>.class);
-		return Result.success(<%=name%>Service.update(old<%=_name%>.getId(), new<%=_name%>, "id","createDate",<%-_updateIgnoreProperties%>));
+		return Result.success(<%=name%>Service.update(old<%=_name%>.getId(), new<%=_name%>, "id","createDate"<%-_updateIgnoreProperties%>));
 	}
 	
 	
