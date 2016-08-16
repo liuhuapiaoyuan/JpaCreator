@@ -47,21 +47,21 @@ public class <%=_name%> extends BaseEntity {
 	
 <%_ for(var i=0; i<fields.length; i++) { _%>
 	/**<%-fields[i].info -%> **/
-	<%_ if(!fields[i].collectionType){ _%>
+	<%_ if(!fields[i].collectionType){ fields[i].showType =fields[i].type ; _%>
 	private <%=fields[i].type-%> <%=fields[i].name-%> ;
 	<%_ } _%>
-	<%_if(fields[i].collectionType){_%>
+	<%_if(fields[i].collectionType){  fields[i].showType =fields[i].collectionType+'<'+fields[i].type+'>' ; _%>
 	private <%=fields[i].collectionType%><<%=fields[i].type%>> <%=fields[i].name%> = new <%-fields[i].collectionType=='Set'?'HashSet':'ArrayList'-%><<%-fields[i].type-%>>();
 	<%_}_%>
 	
 <%_ } _%> 
-<% for(var i=0; i<fields.length; i++) {%>
+<% for(var i=0; i<fields.length; i++) { var field = fields[i];var getName=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()}); %>
 	/**
 	 * 获取<%=fields[i].info%>
 	 * @return <%=fields[i].type%> 获取<%=fields[i].info%>
 	 */
 	<% for(var j=0; j<fields[i].annotation.length; j++){%><%-fields[i].annotation[j]%> 
-	<% } %>public <%=fields[i].type%> get<%=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()});%>() {
+	<% } %>public <%-fields[i].showType%> get<%=getName%>() {
 		return this.<%=fields[i].name%>;
 	}
 	
@@ -69,7 +69,7 @@ public class <%=_name%> extends BaseEntity {
 	 * 设置<%=fields[i].info%>
 	 * @param <%=fields[i].name%>  <%=fields[i].info%>
 	 */
-	public void set<%=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()});%>(<%=fields[i].type%> <%=fields[i].name%>) {
+	public void set<%= getName %>(<%-fields[i].showType%> <%=fields[i].name%>) {
 		this.<%=fields[i].name%> = <%=fields[i].name%>;
 	}
 	
