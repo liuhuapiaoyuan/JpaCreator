@@ -55,12 +55,12 @@ public class <%=_name%> extends BaseEntity {
 	<%_}_%>
 	
 <%_ } _%> 
-<% for(var i=0; i<fields.length; i++) { var field = fields[i];var getName=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()}); %>
+<% for(var i=0; i<fields.length; i++) { var field = fields[i];field.annotation=field.annotation||[];var getName=fields[i].name.replace(/(\w)/,function(v){return v.toUpperCase()}); %>
 	/**
 	 * 获取<%=fields[i].info%>
 	 * @return <%=fields[i].type%> 获取<%=fields[i].info%>
 	 */
-	<% for(var j=0; j<fields[i].annotation.length; j++){%><%-fields[i].annotation[j]%> 
+	<% for(var j=0; j<field.annotation.length; j++){%><%-field.annotation[j]%> 
 	<% } %>public <%-fields[i].showType%> get<%=getName%>() {
 		return this.<%=fields[i].name%>;
 	}

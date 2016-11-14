@@ -24,7 +24,7 @@ import <%=packageName%>.repositories.specifications.Filter.Operator;
 
 
 import <%=packageName%>.utils.DTOCover;
-import <%=packageName%>.controller.user.DTO.<%=_name%>DTO;
+import <%=packageName%>.DTO.user.<%=_name%>DTO;
 
 @RestController("user<%=_name%>Controller")
 @RequestMapping("/user/<%=name%>")
@@ -79,7 +79,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @param <%=name%>
 	 * @return	返回新建的<%=name%>实体内容
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	Result create(@RequestBody <%=_name%>DTO new<%=_name%>DTO) {
 		if(new<%=_name%>DTO == null){
 			return Result.error(10005L, "请上传<%=name%>新实体");	
@@ -129,7 +129,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @param ids json数组	要删除的id集合
 	 * @return
 	 */
-	@RequestMapping(value="/{ids}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/batch/{ids}", method=RequestMethod.DELETE)
 	public Result batchDelete(@RequestBody <%=_name%>DTO <%=_name%>DTO){
 		if(<%=_name%>DTO.getDelids()==null || <%=_name%>DTO.getDelids().length<1){
 			return Result.error(10006L, "请传入要删除的<%=_name%>对象");

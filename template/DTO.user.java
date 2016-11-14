@@ -1,4 +1,4 @@
-package <%=packageName%>.controller.admin.DTO;
+package <%=packageName%>.DTO.user;
 
 import <%=packageName%>.entity.<%=_name%>;
 /**

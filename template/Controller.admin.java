@@ -23,7 +23,7 @@ import <%=packageName%>.repositories.specifications.Filter.Operator;
 
 
 import <%=packageName%>.utils.DTOCover;
-import <%=packageName%>.controller.admin.DTO.<%=_name%>DTO;
+import <%=packageName%>.DTO.admin.<%=_name%>DTO;
 
 @RestController("admin<%=_name%>Controller")
 @RequestMapping("/admin/<%=name%>")
@@ -75,14 +75,14 @@ public class <%=_name%>Controller extends BaseController {
 	 * @param <%=name%>
 	 * @return	返回新建的<%=name%>实体内容
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	Result create(@RequestBody <%=_name%>DTO new<%=_name%>DTO) {
 		if(new<%=_name%>DTO == null){
 			return Result.error(10005L, "请上传<%=name%>新实体");	
 		}
 		<%=_name%> <%=name%> = DTOCover.copy(new<%=_name%>DTO, <%=_name%>.class);
 		if (!isValid(<%=name%>)) {
-			return Result.error(10002L, "上传的数据有错误", getConstraintViolations());
+			return Result.error(ErrorCode.VIOLATION_CONSTRAINT, getConstraintViolations());
 		}
 		return Result.success(<%=name%>Service.save(<%=name%>));
 	}
@@ -97,9 +97,12 @@ public class <%=_name%>Controller extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public Result modify(@PathVariable("id") <%=_name%> old<%=_name%>,@RequestBody <%=_name%>DTO new<%=_name%>DTO){
 		if(old<%=_name%> == null){
-			return Result.error(10005L, "<%=_name%>不存在");	
+			return Result.error(ErrorCode.DATA_NOT_FOUND);
 		}
 		<%=_name%> new<%=_name%> = DTOCover.copy(new<%=_name%>DTO, <%=_name%>.class);
+		if (!isValid(new<%=_name%>)) {
+            return Result.error(ErrorCode.VIOLATION_CONSTRAINT, getConstraintViolations());
+        }
 		return Result.success(<%=name%>Service.update(old<%=_name%>.getId(), new<%=_name%>, "id","createDate"<%-_updateIgnoreProperties%>));
 	}
 	
@@ -125,7 +128,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @param ids json数组	要删除的id集合
 	 * @return
 	 */
-	@RequestMapping(value="/{ids}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/batch/{ids}", method=RequestMethod.DELETE)
 	public Result batchDelete(@RequestBody <%=_name%>DTO <%=_name%>DTO){
 		if(<%=_name%>DTO.getDelids()==null || <%=_name%>DTO.getDelids().length<1){
 			return Result.error(10006L, "请传入要删除的<%=_name%>对象");
