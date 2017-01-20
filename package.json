@@ -4,6 +4,7 @@
   "description": "this is a code creator for spring jpa",
   "main": "index.js",
   "scripts": {
+  	"start":"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
