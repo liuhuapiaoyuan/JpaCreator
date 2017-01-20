@@ -5,7 +5,11 @@
 建议全局安装 npm i jpaCreate -g
 
 ###命令：
-jpaCreate create --entity=order.js	//创建order相关的entity,repository,service,serviceimpl,controller,dto等
+jpaCreate create --entity=order.js --v 2.0	//创建order相关的entity,repository,service,serviceimpl,controller,dto等 使用2.0模板
+
+
+#v0.1.6
+ - 支持指定模板(现在内置 template2 和 template2套)
 
 
 #v0.1.5
