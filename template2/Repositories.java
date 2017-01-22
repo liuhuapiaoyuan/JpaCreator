@@ -1,8 +1,6 @@
 package <%=packageName%>.repositories;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.Query;
-
+import cn.yunnet.jpa.repositories.BaseRepository;
 import <%=packageName%>.entity.<%=_name%>;
 
 

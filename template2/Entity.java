@@ -1,6 +1,6 @@
 package <%=packageName%>.entity;
 
-
+import cn.yunnet.jpa.entity.BaseEntity;
 import java.util.Date;
 import java.math.BigDecimal;
 
