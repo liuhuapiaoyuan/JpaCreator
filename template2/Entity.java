@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  */
 @Entity
+@ApiModel(<%=_name%>)
 public class <%=_name%> extends BaseEntity {
 
 	private static final long serialVersionUID = <%=serialVersionUID%>L;
@@ -47,6 +50,7 @@ public class <%=_name%> extends BaseEntity {
 	
 <%_ for(var i=0; i<fields.length; i++) { _%>
 	/**<%-fields[i].info -%> **/
+	@ApiModelProperty("fields[i].info")
 	<%_ if(!fields[i].collectionType){ fields[i].showType =fields[i].type ; _%>
 	private <%=fields[i].type-%> <%=fields[i].name-%> ;
 	<%_ } _%>

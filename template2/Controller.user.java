@@ -22,8 +22,12 @@ import cn.yunnet.configuration.exception.BusinessException;
 import <%=packageName%>.utils.DTOCover;
 import <%=packageName%>.DTO.user.<%=_name%>DTO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController("user<%=_name%>Controller")
 @RequestMapping("/user/<%=name%>")
+@Api(description="<%=name%>")
 public class <%=_name%>Controller extends BaseController {
 	
 	@Autowired 
@@ -38,6 +42,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="",method = RequestMethod.GET)
+	@ApiOperation("获取<%=info%>分页数据")
 	Object page(Pageable pageable,QueryFilters filters) {			 
 		return <%=name%>Service.findPage(pageable, filters.toFilters());
 	}
@@ -49,6 +54,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return
 	 */
 	 @RequestMapping(value = "/list", method = RequestMethod.GET)
+	 @ApiOperation("获取<%=info%>列表数据")
 	 Object list(QueryFilters filters,Sort sort) {				
 		 return <%=name%>Service.findAll(filters.toFilters(), sort);
 	 }	
@@ -59,6 +65,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation("获取指定的<%=info%>")
 	Object get(@PathVariable("id") <%=_name%> <%=name%>)  throws BusinessException{
 		if(<%=name%> == null){
 			throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
@@ -73,6 +80,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return	返回新建的<%=name%>实体内容
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
+	@ApiOperation("创建：<%=info%>")
 	Object create(@RequestBody @Validated <%=_name%>DTO new<%=_name%>DTO)  throws BusinessException{
 		<%=_name%> <%=name%> = DTOCover.copy(new<%=_name%>DTO, <%=_name%>.class);
 		return <%=name%>Service.save(<%=name%>);
@@ -86,6 +94,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ApiOperation("更新：<%=info%>")
 	public Object modify(@PathVariable("id") <%=_name%> old<%=_name%>,@RequestBody @Validated <%=_name%>DTO new<%=_name%>DTO)  throws BusinessException{
 		<%=_name%> new<%=_name%> = DTOCover.copy(new<%=_name%>DTO, <%=_name%>.class);
 		return <%=name%>Service.update(old<%=_name%>.getId(), new<%=_name%>, "id","createDate"<%-_updateIgnoreProperties%>);
@@ -98,6 +107,7 @@ public class <%=_name%>Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@ApiOperation("删除指定：<%=info%>")
 	public String delete(@PathVariable("id") <%=_name%> <%=name%> )  throws BusinessException {
 		if(<%=name%>==null){
 			throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
@@ -106,7 +116,19 @@ public class <%=_name%>Controller extends BaseController {
 		return "删除成功";
 	}
 	
-	
+	/**
+	 * 批量删除：<%=info%>
+	 * @return
+	 */
+	@RequestMapping(value="", method=RequestMethod.DELETE)
+	@ApiOperation("批量删除：<%=info%>")
+	public String delete(@RequestBody IDs ids)  throws BusinessException {
+		if(ids.getIds()==null){
+			throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
+		}
+		<%=name%>Service.delete(ids.getIds().toArray(new Long[]{}));
+		return "删除成功";
+	}
  
 	
 	
