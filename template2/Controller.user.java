@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController("user<%=_name%>Controller")
 @RequestMapping("/user/<%=name%>")
-@Api(description="<%=name%>")
+@Api(description="<%=info%>")
 public class <%=_name%>Controller extends BaseController {
 	
 	@Autowired 

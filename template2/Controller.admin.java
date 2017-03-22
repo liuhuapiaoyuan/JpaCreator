@@ -107,6 +107,23 @@ public class <%=_name%>Controller extends BaseController {
 	}
 	
 	
+	
+		/**
+	 * 批量删除：<%=info%>
+	 * @return
+	 */
+	@RequestMapping(value="", method=RequestMethod.DELETE)
+	@ApiOperation("批量删除：<%=info%>")
+	public String delete(@RequestBody IDs ids)  throws BusinessException {
+		if(ids.getIds()==null){
+			throw new BusinessException(ErrorCode.DATA_NOT_FOUND);
+		}
+		<%=name%>Service.delete(ids.getIds().toArray(new Long[]{}));
+		return "删除成功";
+	}
+ 
+	
+	
  
 	
 	
